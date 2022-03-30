@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\FormulaCar.txt">
+    <None Include="..\..\..\..\FormulaCar.txt">
       <Link>FormulaCar.txt</Link>
     </None>
   </ItemGroup>

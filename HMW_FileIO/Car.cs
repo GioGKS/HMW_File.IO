@@ -42,15 +42,14 @@ namespace HMW_FileIO
 
 
         //Methods
-        public int GetCodan(int carCode)
+        public int GetCodan()
         {
-            Codan = carCode;
-            return carCode;
+            
+            return Codan;
         }
 
-        public int GetNumberOfSeats(int seats)
+        public int GetNumberOfSeats()
         {
-            NumberOfSeats = seats;
             return NumberOfSeats;
         }
 
@@ -71,16 +70,38 @@ namespace HMW_FileIO
             xml11.Serialize(stream, car);
         }
 
-        public static void SerilizeACarArray(Stream stream, Car[] carArr)
+        public static void DeSerializeCar(string stmPath)
         {
-            XmlSerializer xml11 = new XmlSerializer(typeof(Car));
-            xml11.Serialize(stream, carArr);
+            using (FileStream fileStream = new(stmPath, FileMode.Open))
+            {
+                XmlSerializer serializer = new(typeof(Car));
+                Car sportCar = (Car)serializer.Deserialize(fileStream);
+                Console.WriteLine(sportCar);
+            }
         }
 
-        
-        
+        public static void SerializeCarArray(Car[] carArr)
+        {
+            using (Stream stream = new FileStream(@"/users/gio/desktop/Deserlz.txt", FileMode.Create))
+            {
 
-        
+                XmlSerializer serializer = new(typeof(Car[]));
+                serializer.Serialize(stream, carArr);
 
+            }
+        }
+
+        public static void DeSerializeCarArray(string streamPath)
+        {
+            using (FileStream file1 = new(streamPath, FileMode.Open))
+            {
+                XmlSerializer serializer = new(typeof(Car[]));
+                Car[] jeep = (Car[])serializer.Deserialize(file1);
+                foreach (Car newCar in jeep)
+                {
+                    Console.WriteLine(jeep);
+                }
+            }
+        }
     }
 }
